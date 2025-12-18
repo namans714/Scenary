@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Animated Nature Scene</title>
+
+  <style>
+    /* ===============================
+       GLOBAL PAGE SETUP
+       =============================== */
+    body {
+      margin: 0;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(#87ceeb, #e0f6ff); /* Sky */
+    }
+
+    /* ===============================
+       SUN STYLES
+       =============================== */
+    .sun {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      position: absolute;
+      top: 35%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(
+        circle at 30% 30%,
+        #fff3b0,
+        #ffb300,
+        #ff9800
+      );
+      box-shadow:
+        0 0 25px rgba(255, 165, 0, 0.7),
+        0 0 60px rgba(255, 165, 0, 0.5),
+        0 0 100px rgba(255, 165, 0, 0.3);
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    /* Outer glow around sun */
+    .sun::after {
+      content: "";
+      position: absolute;
+      inset: -18px;
+      border-radius: 50%;
+      background: radial-gradient(
+        circle,
+        rgba(255, 200, 0, 0.35),
+        transparent 70%
+      );
+    }
+
+    /* Sun glowing animation */
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow:
+          0 0 25px rgba(255, 165, 0, 0.7),
+          0 0 60px rgba(255, 165, 0, 0.5),
+          0 0 100px rgba(255, 165, 0, 0.3);
+      }
+      50% {
+        box-shadow:
+          0 0 35px rgba(255, 165, 0, 0.9),
+          0 0 80px rgba(255, 165, 0, 0.6),
+          0 0 140px rgba(255, 165, 0, 0.4);
+      }
+    }
+
+    /* ===============================
+       CLOUD STYLES
+       =============================== */
+    .cloud {
+      position: absolute;
+      width: 160px;
+      height: 60px;
+      background: white;
+      border-radius: 50px;
+      opacity: 0.9;
+    }
+
+    /* Cloud bumps */
+    .cloud::before,
+    .cloud::after {
+      content: "";
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .cloud::before {
+      width: 80px;
+      height: 80px;
+      top: -40px;
+      left: 20px;
+    }
+
+    .cloud::after {
+      width: 100px;
+      height: 100px;
+      top: -60px;
+      left: 60px;
+    }
+
+    /* Individual cloud positions */
+    .cloud-1 { top: 15%; left: 10%; animation: moveCloud 40s linear infinite; }
+    .cloud-2 { top: 25%; left: 45%; width: 200px; opacity: 0.75; animation: moveCloud 55s linear infinite; }
+    .cloud-3 { top: 18%; left: 70%; width: 140px; opacity: 0.85; animation: moveCloud 48s linear infinite; }
+    .cloud-4 { top: 30%; left: 20%; animation: moveCloud 60s linear infinite; }
+    .cloud-5 { top: 12%; left: 80%; animation: moveCloud 45s linear infinite; }
+
+    /* Cloud movement */
+    @keyframes moveCloud {
+      from { transform: translateX(0); }
+      to { transform: translateX(120vw); }
+    }
+
+    /* ===============================
+       BIRD STYLES
+       =============================== */
+    .bird {
+      position: absolute;
+      width: 40px;
+      height: 20px;
+      border-top: 3px solid #333;
+      border-radius: 50%;
+      transform: rotate(-10deg);
+    }
+
+    /* Bird wings */
+    .bird::before,
+    .bird::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 10px;
+      border-top: 3px solid #333;
+      border-radius: 50%;
+    }
+
+    .bird::before {
+      left: -18px;
+      transform-origin: right center;
+      animation: flap 0.6s ease-in-out infinite;
+    }
+
+    .bird::after {
+      right: -18px;
+      transform-origin: left center;
+      animation: flap 0.6s ease-in-out infinite;
+    }
+
+    /* Wing flapping */
+    @keyframes flap {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(20deg); }
+    }
+
+    /* Bird flight */
+    @keyframes fly {
+      from { transform: translateX(-150px); }
+      to { transform: translateX(120vw); }
+    }
+
+    .bird-1 { top: 25%; animation: fly 18s linear infinite; }
+    .bird-2 { top: 35%; animation: fly 10s linear infinite; opacity: 0.7; }
+    .bird-3 { top: 45%; animation: fly 22s linear infinite; }
+
+    /* ===============================
+       GRASS STYLES
+       =============================== */
+    .grass {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 120px;
+      background: linear-gradient(to top, #1b5e20, #4caf50);
+    }
+
+    /* ===============================
+       TREE STYLES
+       =============================== */
+    .tree {
+      position: absolute;
+      width: 40px;
+      height: 100px;
+      background: #6d4c41;
+      border-radius: 10px;
+    }
+
+    .leaves {
+      position: absolute;
+      bottom: 70px;
+      left: -60px;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #66bb6a, #2e7d32);
+    }
+
+    .leaves::before,
+    .leaves::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: #43a047;
+      border-radius: 50%;
+    }
+
+    .leaves::before { top: -40px; left: 20px; }
+    .leaves::after { top: 20px; left: -40px; }
+
+    .tree-1 { left: 15%; bottom: 70px; }
+    .tree-2 { left: 70%; bottom: 90px; transform: scale(0.8); }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- Clouds -->
+  <div class="cloud cloud-1"></div>
+  <div class="cloud cloud-2"></div>
+  <div class="cloud cloud-3"></div>
+  <div class="cloud cloud-4"></div>
+  <div class="cloud cloud-5"></div>
+
+  <!-- Sun -->
+  <div class="sun"></div>
+
+  <!-- Birds -->
+  <div class="bird bird-1"></div>
+  <div class="bird bird-2"></div>
+  <div class="bird bird-3"></div>
+
+  <!-- Grass -->
+  <div class="grass"></div>
+
+  <!-- Trees -->
+  <div class="tree tree-1"><div class="leaves"></div></div>
+  <div class="tree tree-2"><div class="leaves"></div></div>
+
+</body>
+</html>
